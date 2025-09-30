@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class FootballMovement : MonoBehaviour
 {
-    Rigidbody2D rigidbody;
+    private Rigidbody2D rigidbody;
+
+    private bool dissapearing = false;
+    private int dissapearTimer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -13,11 +16,23 @@ public class FootballMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (dissapearTimer <= 0 && dissapearing)
+        {
+            Destroy(gameObject);
+        }
+        else if (dissapearing)
+        {
+            dissapearTimer--;
+        }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject collider = collision.gameObject;
+
+        dissapearing = true;
+        dissapearTimer = 120;
+
+        //some code to increase score or goal
     }
 }
