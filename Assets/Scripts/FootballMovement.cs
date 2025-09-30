@@ -19,12 +19,5 @@ public class FootballMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject collider = collision.gameObject;
-
-        int collisionState = 0;
-
-        //if ()
-
-        rigidbody.linearVelocityX *= -1;
-        rigidbody.linearVelocityY *= 1;
     }
 }
