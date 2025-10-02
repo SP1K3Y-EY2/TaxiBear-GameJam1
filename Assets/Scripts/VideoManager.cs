@@ -8,39 +8,26 @@ using UnityEngine.Video;
 public class VideoManager : MonoBehaviour
 {
     private VideoPlayer player;
-    private float Cliptime;
     private GameObject tvObject;
-    private bool isPlaying = false;
-  void Awake()
+    [SerializeField] float Cliptime;
+    void Awake()
     {
         VideoPlayer player = GetComponent<VideoPlayer>();
         VideoClip clip = player.clip;
         player.isLooping = false;
     }
-
-
-   IEnumerator Wait()
+    IEnumerator Wait()
     {
-        yield return new WaitForSeconds(Cliptime);
+        yield return new WaitForSeconds(10);
         player.Pause();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isPlaying = false)
+        if (player.isPlaying == false)
         {
-
-
-
-
-
-        } }
-
-    private void OnEnable(tvObject)
-    {
-        isPlaying = true;
-        player.Play();
-        Wait();
-
+            player.Play();
+            Wait();
+        } 
     }
 }
