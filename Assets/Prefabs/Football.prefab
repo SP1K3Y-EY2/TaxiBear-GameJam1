@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 135538455002005942}
   m_Layer: 0
   m_Name: Football
-  m_TagString: Untagged
+  m_TagString: Football
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -542,6 +542,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 763f005f8478dd547af8d11a4152dfd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileLife: 5
+  hazardTime: 0.5
+  goalTime: 0.2
 --- !u!50 &2105682822836543715
 Rigidbody2D:
   serializedVersion: 5

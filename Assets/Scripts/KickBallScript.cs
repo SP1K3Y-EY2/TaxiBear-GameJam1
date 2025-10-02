@@ -9,6 +9,8 @@ public class KickBallScript : MonoBehaviour
     private InputAction launchAction;
     [SerializeField] private GameObject football;
     private GameObject powerDisplay;
+    [SerializeField] private GameObject activeBall;
+    [SerializeField] private GameObject pathHighlighter;
     #endregion
 
     #region Arrow Rotation
@@ -37,12 +39,13 @@ public class KickBallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (launchAction.IsPressed())
+        if (launchAction.IsPressed() && activeBall == null)
         {
             power += powerChargeRate * powerChargeDirection;
 
-            powerDisplay.transform.localScale = new Vector3(1f, 1f + (1f * power / 100f), 1f);
-            powerDisplay.transform.localPosition = new Vector2(0, 0.21f + (0.5f * power / 100f));
+            powerDisplay.SetActive(true);
+            powerDisplay.transform.localScale = new Vector3(1f, 1f + (1.25f * power / 100f), 1f);
+            powerDisplay.transform.localPosition = new Vector2(0, 0.21f + (0.625f * power / 100f));
 
             if (power <= 0 || power >= 100f) powerChargeDirection *= -1;
         }
@@ -53,14 +56,26 @@ public class KickBallScript : MonoBehaviour
             power = 0;
             powerChargeDirection = 1;
 
-            powerDisplay.transform.localScale = new Vector3(1f, 1f, 1f);
-            powerDisplay.transform.localPosition = new Vector2(0, 0.21f);
+            powerDisplay.SetActive(false);
+            //powerDisplay.transform.localScale = new Vector3(1f, 1f, 1f);
+            //powerDisplay.transform.localPosition = new Vector2(0, 0.21f);
 
             hCharge += hChargeRate * hChargeDirection;
 
             transform.rotation = Quaternion.Euler(0, 0, hCharge / 100f * halfAngle);
 
             if (hCharge <= -100f || hCharge >= 100f) hChargeDirection *= -1;
+        }
+
+        if (activeBall == null)
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+            pathHighlighter.SetActive(true);
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0);
+            pathHighlighter.SetActive(false);
         }
     }
 
@@ -71,10 +86,12 @@ public class KickBallScript : MonoBehaviour
 
         float angle = (90f + transform.eulerAngles.z) * Mathf.Deg2Rad;
 
-        GameObject launchedBall = Instantiate(football, transform.position, transform.rotation);
+        GameObject spawnedBall = Instantiate(football, transform.position, transform.rotation);
 
         Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
-        launchedBall.GetComponent<Rigidbody2D>().linearVelocity = direction * speed * velocityMod;
+        spawnedBall.GetComponent<Rigidbody2D>().linearVelocity = direction * speed * velocityMod;
+
+        activeBall = spawnedBall;
     }
 }

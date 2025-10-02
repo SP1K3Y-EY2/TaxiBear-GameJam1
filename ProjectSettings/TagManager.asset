@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Divider
+  - Hazard
+  - Goal
+  - Football
   layers:
   - Default
   - TransparentFX
