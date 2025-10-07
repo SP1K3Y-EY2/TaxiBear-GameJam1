@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -18,6 +20,7 @@ public class KickBallScript : MonoBehaviour
     private int hChargeDirection = 1;
     [SerializeField] private float hChargeRate;
     [SerializeField] private float halfAngle;
+    [SerializeField] private int launchStage = 0;
     #endregion
 
     #region Charge Kick
@@ -32,6 +35,7 @@ public class KickBallScript : MonoBehaviour
     {
         launchAction = InputSystem.actions.FindAction("Attack");
         launchAction.Enable();
+        //launchAction.o() += OnTap();
 
         powerDisplay = GameObject.Find("PowerVisual");
     }
@@ -39,35 +43,57 @@ public class KickBallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (launchAction.IsPressed() && activeBall == null)
+        if (launchAction.WasPressedThisFrame() && launchStage < 2)
         {
-            power += powerChargeRate * powerChargeDirection;
-
-            powerDisplay.SetActive(true);
-            powerDisplay.transform.localScale = new Vector3(1f, 1f + (1.25f * power / 100f), 1f);
-            powerDisplay.transform.localPosition = new Vector2(0, 0.21f + (0.625f * power / 100f));
-
-            if (power <= 0 || power >= 100f) powerChargeDirection *= -1;
-        }
-        else
-        {
-            if (power > 0) LaunchBall();
-
-            power = 0;
-            powerChargeDirection = 1;
-
-            powerDisplay.SetActive(false);
-            //powerDisplay.transform.localScale = new Vector3(1f, 1f, 1f);
-            //powerDisplay.transform.localPosition = new Vector2(0, 0.21f);
-
-            hCharge += hChargeRate * hChargeDirection;
-
-            transform.rotation = Quaternion.Euler(0, 0, hCharge / 100f * halfAngle);
-
-            if (hCharge <= -100f || hCharge >= 100f) hChargeDirection *= -1;
+            launchStage++; //0 is idle rotation of arrow. 1 is static arrow with charging power. 2 launches ball. 3 blocks input with visuals. 4 is temp. 5 blocks input without visuals.
+            if (launchStage > 4) launchStage = 0;
         }
 
-        if (activeBall == null)
+        switch (launchStage)
+        {
+            case 0:
+                power = 0;
+                powerChargeDirection = 1;
+
+                powerDisplay.SetActive(false);
+                //powerDisplay.transform.localScale = new Vector3(1f, 1f, 1f);
+                //powerDisplay.transform.localPosition = new Vector2(0, 0.21f);
+
+                hCharge += hChargeRate * hChargeDirection;
+
+                transform.rotation = Quaternion.Euler(0, 0, hCharge / 100f * halfAngle);
+
+                if (hCharge <= -100f || hCharge >= 100f) hChargeDirection *= -1;
+                break;
+            case 1:
+                power += powerChargeRate * powerChargeDirection;
+
+                powerDisplay.SetActive(true);
+                powerDisplay.transform.localScale = new Vector3(1f, 1f + (1.25f * power / 100f), 1f);
+                powerDisplay.transform.localPosition = new Vector2(0, 0.21f + (0.625f * power / 100f));
+
+                if (power <= 0 || power >= 100f) powerChargeDirection *= -1;
+                break;
+            case 2:
+                LaunchBall();
+                launchStage = 3;
+                break;
+            case 3:
+                StartCoroutine(StageTimer(1));
+                launchStage = 4;
+                break;
+            case 4:
+                break;
+            case 5:
+                if (activeBall == null) launchStage = 0;
+                powerDisplay.SetActive(false);
+                break;
+            default:
+
+                break;
+        }
+
+        if (launchStage <= 4)
         {
             gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
             pathHighlighter.SetActive(true);
@@ -93,5 +119,11 @@ public class KickBallScript : MonoBehaviour
         spawnedBall.GetComponent<Rigidbody2D>().linearVelocity = direction * speed * velocityMod;
 
         activeBall = spawnedBall;
+    }
+
+    IEnumerator StageTimer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        launchStage++;
     }
 }
