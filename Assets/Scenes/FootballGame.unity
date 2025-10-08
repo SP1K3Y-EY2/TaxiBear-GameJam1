@@ -403,7 +403,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264464036}
   m_Enabled: 1
-  m_VideoClip: {fileID: 0}
+  m_VideoClip: {fileID: 32900000, guid: 5962f35c5afa9684193f535a9c1f4c86, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -425,7 +425,7 @@ VideoPlayer:
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_SkipOnDrop: 1
   m_Looping: 0
   m_WaitForFirstFrame: 1
@@ -508,8 +508,8 @@ Transform:
   m_GameObject: {fileID: 264464036}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.014500141, y: 4.2058, z: 0}
-  m_LocalScale: {x: 4.8934693, y: 1.4933317, z: 1}
+  m_LocalPosition: {x: -0.014500141, y: 3.628, z: 0}
+  m_LocalScale: {x: 4.8934693, y: 2.6490211, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1652997511}
@@ -974,7 +974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &450355080
 Transform:
   m_ObjectHideFlags: 0
@@ -984,7 +984,7 @@ Transform:
   m_GameObject: {fileID: 450355079}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.81, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5999999, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1059,8 +1059,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65035bf3246c0d64b83daa509c3de1b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstPatrolPos: {x: -1, y: 3}
-  SecondPatrolPos: {x: 1, y: 3}
+  FirstPatrolPos: {x: -1, y: 0.5999999}
+  SecondPatrolPos: {x: 1, y: 0.5999999}
   speed: 1
 --- !u!58 &450355083
 CircleCollider2D:
@@ -1245,7 +1245,7 @@ Transform:
   m_GameObject: {fileID: 615180698}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.5, z: 0}
+  m_LocalPosition: {x: 0, y: -3.65, z: 0}
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1323,10 +1323,10 @@ MonoBehaviour:
   football: {fileID: 8744175860510689207, guid: 2308e0ef9bfc7084891061bb7f01554e, type: 3}
   activeBall: {fileID: 0}
   pathHighlighter: {fileID: 37783931}
-  hChargeRate: 0.15
+  hChargeRate: 0.5
   halfAngle: 60
   launchStage: 0
-  powerChargeRate: 0.2
+  powerChargeRate: 1
   speed: 10
 --- !u!1 &627907739
 GameObject:
@@ -2103,7 +2103,7 @@ Transform:
   m_GameObject: {fileID: 1117744189}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.81, z: 0}
+  m_LocalPosition: {x: 0, y: 1.6599998, z: 0}
   m_LocalScale: {x: 2, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
