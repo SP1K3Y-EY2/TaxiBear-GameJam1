@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class FootballMovement : MonoBehaviour
 {
@@ -8,11 +9,13 @@ public class FootballMovement : MonoBehaviour
     [SerializeField] private float projectileLife;
     [SerializeField] private float hazardTime;
     [SerializeField] private float goalTime;
+    [SerializeField] private GameObject videoManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        videoManager = GameObject.Find("CrowdVideo");
     }
 
     // Update is called once per frame
@@ -28,6 +31,18 @@ public class FootballMovement : MonoBehaviour
         if (collider.CompareTag("Goal"))
         {
             StartCoroutine(Dissapear(goalTime));
+            /*if (videoManager.player.isPlaying == false)
+            {
+                videoManager.player.Play();
+                videoManager.Wait();
+            }*/
+
+            Debug.Log("WOW IT WORK 1");
+
+            if (!videoManager.GetComponent<VideoManager>().GetComponent<VideoPlayer>().isPlaying) 
+            {
+                videoManager.GetComponent<VideoManager>().PlayVideo();
+            }
         }
         else if (collider.CompareTag("Hazard"))
         {
@@ -44,6 +59,15 @@ public class FootballMovement : MonoBehaviour
         if (collider.CompareTag("Goal"))
         {
             StartCoroutine(Dissapear(goalTime));
+            /*if (videoManager.player.isPlaying == false)
+            {
+                videoManager.player.Play();
+                videoManager.Wait();
+            }*/
+
+            Debug.Log("WOW IT WORK 1");
+            videoManager.GetComponent<VideoManager>().PlayVideo();
+
         }
         else if (collider.CompareTag("Hazard"))
         {
