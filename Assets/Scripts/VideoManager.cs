@@ -38,19 +38,19 @@ public class VideoManager : MonoBehaviour
         switch (videoProgress) //25 second video
         {
             case 0:
-                time = 6;
+                time = 6.15f;
                 break;
             case 1:
-                time = 6;
+                time = 14.15f;
                 break;
             case 2:
-                time = 6;
+                time = 20f;
                 break;
             case 3:
-                time = 7;
+                time = 25.15f;
                 break;
             default:
-                time = 0;
+                time = 0f;
                 break;
         }
 
