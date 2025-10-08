@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class FootballMovement : MonoBehaviour
 {
@@ -37,7 +38,11 @@ public class FootballMovement : MonoBehaviour
             }*/
 
             Debug.Log("WOW IT WORK 1");
-            videoManager.GetComponent<VideoManager>().PlayVideo(5f);
+
+            if (!videoManager.GetComponent<VideoManager>().GetComponent<VideoPlayer>().isPlaying) 
+            {
+                videoManager.GetComponent<VideoManager>().PlayVideo();
+            }
         }
         else if (collider.CompareTag("Hazard"))
         {
@@ -61,7 +66,7 @@ public class FootballMovement : MonoBehaviour
             }*/
 
             Debug.Log("WOW IT WORK 1");
-            videoManager.GetComponent<VideoManager>().PlayVideo(10f);
+            videoManager.GetComponent<VideoManager>().PlayVideo();
 
         }
         else if (collider.CompareTag("Hazard"))
