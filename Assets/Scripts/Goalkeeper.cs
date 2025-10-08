@@ -1,5 +1,8 @@
+using System.Security.Cryptography;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Goalkeeper : MonoBehaviour
 {
@@ -27,10 +30,12 @@ public class Goalkeeper : MonoBehaviour
             if (targetPos == FirstPatrolPos)
             {
                 targetPos = SecondPatrolPos;
+                FirstPatrolPos = new Vector2(Random.Range(-1.75f, 1.75f), Random.Range(0.25f, 0.75f));
             }
             else
             {
                 targetPos = FirstPatrolPos;
+                SecondPatrolPos = new Vector2(Random.Range(-1.75f, 1.75f), Random.Range(0.25f, 0.75f));
             }
             
         }
